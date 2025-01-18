@@ -1,0 +1,81 @@
+<form [formGroup]="form" class="flex flex-col space-y-6" *ngIf="show">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="flex flex-col">
+            <input type="text" pInputText placeholder="Nombre de la escuela" formControlName="name" class="w-full" [ngClass]="errorsClass(name)"/>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="name.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <p-select [options]="countries" optionLabel="name" [filter]="true" filterBy="name.common" formControlName="country" [ngClass]="errorsClass(country)" placeholder="País">
+                <ng-template pTemplate="selectedItem" let-country>
+                    <div class="flex items-center gap-2">
+                        <img [src]="country.flags.png" alt="flag" class="w-6 h-6"/>
+                        <span>{{country?.name?.common!}}</span>
+                    </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                    <div class="flex items-center gap-2">
+                        <img [src]="country.flags.png" alt="flag" class="w-6 h-6"/>
+                        <span>{{country?.name?.common!}}</span>
+                    </div>
+                </ng-template>
+            </p-select>
+            <div *ngIf="country.invalid && (country.dirty || country.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="country.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <input type="text" pInputText placeholder="Estado" formControlName="state" class="w-full" [ngClass]="errorsClass(state)"/>
+            <div *ngIf="state.invalid && (state.dirty || state.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="state.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <!-- Ciudad -->
+        <div class="flex flex-col col-span-1 sm:col-span-2 lg:col-span-3">
+            <input type="text" pInputText placeholder="Ciudad" formControlName="city" 
+                class="w-full" [ngClass]="errorsClass(city)" />
+            <div *ngIf="city.invalid && (city.dirty || city.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="city.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+    
+        <!-- Calle -->
+        <div class="flex flex-col col-span-1 sm:col-span-2 lg:col-span-2">
+            <input type="text" pInputText placeholder="Calle" formControlName="street" 
+                class="w-full" [ngClass]="errorsClass(street)" />
+            <div *ngIf="street.invalid && (street.dirty || street.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="street.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+    
+        <!-- Colonia -->
+        <div class="flex flex-col col-span-1 sm:col-span-2 lg:col-span-3">
+            <input type="text" pInputText placeholder="Colonia" formControlName="neighborhood" 
+                class="w-full" [ngClass]="errorsClass(neighborhood)" />
+            <div *ngIf="neighborhood.invalid && (neighborhood.dirty || neighborhood.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="neighborhood.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+    
+        <!-- Código Postal -->
+        <div class="flex flex-col col-span-1">
+            <input type="text" pInputText placeholder="Código postal" formControlName="zipCode" 
+                class="w-full" [ngClass]="errorsClass(zipCode)" />
+            <div *ngIf="zipCode.invalid && (zipCode.dirty || zipCode.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="zipCode.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+    </div>            
+    <div class="flex flex-col">
+        <h2 class="text-lg font-semibold text-start text-primary my-5">Niveles de educación</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div *ngFor="let level of educationalLevels" class="flex items-center gap-2">
+                <p-checkbox [inputId]="level.id" name="group" [value]="level" formControlName="educationalLevel"></p-checkbox>
+                <label [for]="level.id" class="text-base"> {{ level.name }} </label>
+            </div>
+        </div>
+    </div>            
+</form>

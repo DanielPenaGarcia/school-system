@@ -1,0 +1,1 @@
+export { primeNgConfig } from './primeng.config';

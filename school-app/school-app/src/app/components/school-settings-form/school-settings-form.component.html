@@ -1,0 +1,28 @@
+<form [formGroup]="form" class="flex flex-col space-y-6" *ngIf="show">
+    <p-button label="Agregar programa" icon="pi pi-plus" iconPos="right" (onClick)="addProgram()"/>
+    <form *ngFor="let item of form.get('programs')['controls']; let i = index" [formGroup]="item">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <!-- Name -->
+            <div class="flex flex-col">
+                <input type="text" pInputText placeholder="Nombre del programa" formControlName="name" class="w-full" [ngClass]="errorsClass(getControlsProgramByIndex(i, 'name'))"/>
+                <div *ngIf="getControlsProgramByIndex(i, 'name').invalid && (getControlsProgramByIndex(i, 'name').dirty || getControlsProgramByIndex(i, 'name').touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                    <span *ngIf="getControlsProgramByIndex(i, 'name').errors['required']">Campo requerido</span>
+                </div>
+            </div>
+            <!-- Description -->
+            <div class="flex flex-col">
+                <input type="text" pInputText placeholder="Descripción" formControlName="description" class="w-full" [ngClass]="errorsClass(getControlsProgramByIndex(i, 'description'))"/>
+                <div *ngIf="getControlsProgramByIndex(i, 'description').invalid && (getControlsProgramByIndex(i, 'description').dirty || getControlsProgramByIndex(i, 'description').touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                    <span *ngIf="getControlsProgramByIndex(i, 'description').errors['required']">Campo requerido</span>
+                </div>
+            </div>
+            <!-- Abbreviation -->
+            <div class="flex flex-col">
+                <input type="text" pInputText placeholder="Abreviación" formControlName="abbreviation" class="w-full" [ngClass]="errorsClass(getControlsProgramByIndex(i, 'abbreviation'))"/>
+                <div *ngIf="getControlsProgramByIndex(i, 'abbreviation').invalid && (getControlsProgramByIndex(i, 'abbreviation').dirty || getControlsProgramByIndex(i, 'abbreviation').touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                    <span *ngIf="getControlsProgramByIndex(i, 'abbreviation').errors['required']">Campo requerido</span>
+                </div>
+            </div>                        
+        </div>
+    </form>
+</form>

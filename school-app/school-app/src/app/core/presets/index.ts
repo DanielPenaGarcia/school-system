@@ -1,0 +1,1 @@
+export { schoolPreset } from './school.preset';

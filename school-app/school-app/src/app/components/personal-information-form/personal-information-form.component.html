@@ -1,0 +1,37 @@
+<form [formGroup]="form" class="flex flex-col space-y-6" *ngIf="show">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="flex flex-col">
+            <input type="text" pInputText placeholder="Nombres" formControlName="name" class="w-full" [ngClass]="errorsClass(name)"/>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="name.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <input type="text" pInputText placeholder="Apellidos" formControlName="lastNames" class="w-full" [ngClass]="errorsClass(lastNames)"/>
+            <div *ngIf="lastNames.invalid && (lastNames.dirty || lastNames.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="lastNames.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <p-datepicker placeholder="Fecha de nacimiento" styleClass="w-full" formControlName="birthdate" [iconDisplay]="'input'" [showIcon]="true" dateFormat="dd/mm/yy" [ngClass]="errorsClass(birthdate)"></p-datepicker>
+            <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="birthdate.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="flex flex-col">
+            <input type="text" pInputText placeholder="Correo electrónico" formControlName="email" class="w-full" [ngClass]="errorsClass(email)"/>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="email.errors['required']">Campo requerido</span>
+                <span *ngIf="email.errors['email']">Correo electrónico inválido</span>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <input type="tel" pInputText placeholder="Teléfono" formControlName="phone" class="w-full" [ngClass]="errorsClass(phone)"/>
+            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="flex flex-col py-2 gap-2 text-red-500 text-sm">
+                <span *ngIf="phone.errors['required']">Campo requerido</span>
+            </div>
+        </div>
+    </div>
+</form>

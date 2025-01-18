@@ -1,0 +1,167 @@
+<!-- p-steps for navigation -->
+<p-steps [activeIndex]="stepIndex" [model]="steps" class="mb-6 hidden sm:block"/>
+
+<!-- Content by steps -->
+<div class="h-max flex flex-col ">
+    <h1 class="text-2xl font-semibold text-center text-primary my-5">{{currtentStep.label}}</h1>
+    <div class="space-y-6">
+        <!-- Form step 1 => Personal information -->
+        <app-personal-information-form #personal [show]="stepIndex === 0" (valid)="onValid($event, 0)"></app-personal-information-form>
+
+        <app-school-information-form #school [show]="stepIndex === 1" (valid)="onValid($event, 1)"></app-school-information-form>
+
+        <div *ngIf="stepIndex === 2" class="flex flex-col items-center p-6">
+            <!-- Título -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Información Personal</h1>
+            
+            <!-- Contenedor de información -->
+            <p-card class="w-full max-w-2xl">
+                <!-- Nombre -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mb-4">
+                    <i class="pi pi-user text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Nombre completo:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{personalInformationForm.name.value}} {{personalInformationForm.lastNames.value}}
+                    </span>
+                </div>
+            
+                <!-- Fecha de nacimiento -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-calendar text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Fecha de nacimiento:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{personalInformationForm.birthdate.value | date: 'dd/MM/yyyy'}}
+                    </span>
+                </div>
+            
+                <!-- Correo -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-envelope text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Correo electrónico:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{personalInformationForm.email.value}}
+                    </span>
+                </div>
+            
+                <!-- Teléfono -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6">
+                    <i class="pi pi-phone text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Teléfono:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{personalInformationForm.phone.value}}
+                    </span>
+                </div>
+            </p-card>
+            <p-divider/>
+            <!-- Título -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Información Escolar</h1>
+
+            <!-- Contenedor de información -->
+            <p-card class="w-full max-w-2xl">
+                <!-- Nombre de la escuela -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mb-4">
+                    <i class="pi pi-building text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Nombre de la escuela:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{schoolInformationForm.name.value}}
+                    </span>
+                </div>
+
+                <!-- Ciudad -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-map-marker text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Ciudad:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{schoolInformationForm.city.value}}
+                    </span>
+                </div>
+
+                <!-- Estado -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-globe text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Estado:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{schoolInformationForm.state.value}}
+                    </span>
+                </div>
+
+                <!-- País -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-flag text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        País:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{schoolInformationForm.country.value.name.common}}
+                    </span>
+                </div>
+
+                <!-- Calle -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-home text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Calle:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{schoolInformationForm.street.value}}
+                    </span>
+                </div>
+
+                <!-- Vecindario -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-map text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Colonia:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{schoolInformationForm.neighborhood.value}}
+                    </span>
+                </div>
+
+                <!-- Código postal -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-hashtag text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Código postal:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        {{schoolInformationForm.zipCode.value}}
+                    </span>
+                </div>
+
+                <!-- Nivel educativo -->
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center mt-6 mb-4">
+                    <i class="pi pi-graduation-cap text-blue-500 text-xl sm:col-span-1 col-span-full text-center sm:text-left"></i>
+                    <p class="text-lg font-semibold text-gray-700 sm:col-span-3 col-span-full text-center sm:text-left">
+                        Nivel educativo:
+                    </p>
+                    <span class="text-gray-600 sm:col-span-8 col-span-full text-center sm:text-left">
+                        @for (item of schoolInformationForm.educationalLevel.value; track $index) {
+                            {{item.name}}{{$last ? '' : ', '}}
+                        }
+                    </span>
+                </div>
+            </p-card>
+        </div>        
+    </div>
+    <!-- Action Buttons -->
+    <div class="flex justify-between mt-6">
+        <p-button label="Atrás" class="p-button-outlined" (click)="previousStep()" [disabled]="isFirtsStep"/>
+        <div class="rounded-full bg-blue-500 text-white flex items-center justify-center w-12 h-12 sm:hidden"> {{currtentStep.id}} </div>
+        <p-button [label]="isLastStep? 'Confirmar' : 'Siguiente'" class="p-button-outlined" (click)="nextStep()" [disabled]="isCurrentFormInvalid"/>
+    </div>
+</div>
