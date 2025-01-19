@@ -113,7 +113,6 @@ export class SchoolInformationFormComponent implements OnInit {
 
   subscribeToFormChanges(): void {
     this.form.statusChanges.subscribe((status: FormControlStatus) => {
-      console.log(this.educationalLevel.value);
       this.valid.emit(status === 'VALID');
     });
   }
