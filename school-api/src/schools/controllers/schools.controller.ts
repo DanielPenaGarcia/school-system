@@ -1,15 +1,14 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { InitSchool } from 'src/models/input/init-school';
+import { SchoolsService } from '../services/schools.service';
+import { CreateSchoolDTO } from '../inputs/create-school.dto';
 
 @Controller('schools')
 export class SchoolsController {
 
-    constructor() {}
+    constructor(private readonly schoolService: SchoolsService) {}
 
     @Post()
-    initSchool(@Body() body: InitSchool){
-        console.log(body);
-        return body;
+    async createSchool(@Body() createSchool: CreateSchoolDTO) {
+        return await this.schoolService.createSchool(createSchool);
     }
-
 }

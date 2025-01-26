@@ -8,6 +8,8 @@ import { DividerModule } from 'primeng/divider';
 import { PersonalInformationFormComponent } from '@components/personal-information-form/personal-information-form.component';
 import { SchoolInformationFormComponent } from '@components/school-information-form/school-information-form.component';
 import { PersonalInformation, SchoolInformation } from '@core/interfaces';
+import { SignUp } from './sign-up.types';
+import { SignUpService } from './sign-up.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -33,7 +35,7 @@ export class SignUpComponent implements OnInit {
   @ViewChild('personal') personalInformationForm: PersonalInformationFormComponent;
   @ViewChild('school') schoolInformationForm: SchoolInformationFormComponent;
 
-  constructor() {}
+  constructor(private readonly signUpService: SignUpService) {}
 
   ngOnInit(): void {
     this.initSteps();
@@ -97,7 +99,11 @@ export class SignUpComponent implements OnInit {
 
   private onComplete(): void {
     const personalInformation: PersonalInformation = this.personalInformationForm.personalInformation;
-    const schoolInformation: SchoolInformation = this.schoolInformationForm.schoolInformation;
+    const schoolInformation: SchoolInformation = { ...this.schoolInformationForm.schoolInformation, country: this.schoolInformationForm.country.value.name.common };
+    const signUp: SignUp = { personalInformation, schoolInformation };
+    this.signUpService.saveSchool(signUp).subscribe(() => {
+      console.log('School saved');
+    }); 
     //TODO: Enviar información al servidor
   }
 }

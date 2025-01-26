@@ -1,0 +1,11 @@
+<a class="text-xl w-full p-2 flex items-center hover:bg-blue-600 transition-all duration-200 rounded-md cursor-pointer justify-between sm:justify-content-start" [routerLink]="item.routerLink" [replaceUrl]="item.replaceUrl" (click)="showChildren = !showChildren">
+    <i class="pi" [ngClass]="item.icon"></i>
+    <span class="pl-2 text-white-700 flex-1 inline-block">{{ item.label }}</span>
+    <i *ngIf="item.items?.length" class="pi pi-chevron-down transition-transform duration-300" [ngClass]="{'rotate-180': showChildren}"></i>
+</a>
+
+<ul *ngIf="showChildren" class="transition-all duration-300 max-h-0 overflow-hidden ease-out" [ngStyle]="{ 'max-height': showChildren ? '1000px' : '0' }">
+    <li *ngFor="let child of item.items" class="pl-8 py-2">
+        <app-item [item]="child"></app-item>
+    </li>
+</ul>

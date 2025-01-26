@@ -1,11 +1,21 @@
-import { EducationalLevel } from "./educational-level";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { BaseModel } from "./base.model";
+import { SchoolAddress } from "./school-address.model";
+import { Settings } from "./settings.model";
+import { Member } from "./member.model";
 
-export interface School {
+@Entity('schools')
+export class School extends BaseModel {
+
+    @Column({ nullable: false, name: 'name' })
     name: string;
-    country: string;
-    city: string;
-    state: string;
-    address: string;
-    zipCode: string;
-    educationalLevels: EducationalLevel[];
+
+    @OneToMany(() => SchoolAddress, schoolAddress => schoolAddress.school, { cascade: ['insert']})
+    schoolAddresses: SchoolAddress[];
+
+    @OneToMany(() => Settings, settings => settings.school, { cascade: ['insert']})
+    settings: Settings[];
+
+    @ManyToOne(() => Member, member => member.schools, { cascade: ['insert']})
+    member: Member;
 }

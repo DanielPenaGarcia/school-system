@@ -1,0 +1,32 @@
+<!-- Sidebar completo cuando 'hide' es false -->
+<div [class.w-0]="hide" [class.w-64]="!hide" class="flex flex-col h-full bg-primary text-white p-4 transition-all duration-300 ease-in-out" [class.scale-x-0]="hide" [class.scale-x-100]="!hide" style="transform-origin: left;">
+    <div class="flex flex-col flex-grow">
+      <!-- Logo y título -->
+      <div class="flex justify-center items-center mb-6">
+        <img src="assets/images/sc.png" alt="logo" class="h-12" />
+        <h1 class="text-2xl font-bold px-2 py-1 block">School</h1>
+      </div>
+  
+      <!-- Lista de items con separación entre cada uno -->
+      <ul class="flex flex-col h-full space-y-4"> <!-- Cambié gap por space-y-4 para separación entre items -->
+        <li *ngFor="let item of items" class="flex flex-col">
+          <app-item [item]="item"></app-item>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Botón de ocultar al final -->
+    <div class="mt-auto justify-center items-center flex md:hidden">
+      <button (click)="toggleSidebar()" class="bg-blue-500 p-5 rounded-full text-white hover:bg-blue-600 transition-all">
+        <i class="pi pi-chevron-left text-xl"></i>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Si 'hide' es true, muestra el botón flotante en la esquina superior izquierda -->
+  <div *ngIf="hide" class="absolute bottom-4 left-4 w-12 h-12 bg-blue-500 rounded-full justify-center items-center text-white cursor-pointer z-50 flex md:hidden">
+    <button (click)="toggleSidebar()">
+      <i class="pi pi-bars text-xl"></i>
+    </button>
+  </div>
+  

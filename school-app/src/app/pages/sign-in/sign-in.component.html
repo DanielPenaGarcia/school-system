@@ -1,0 +1,24 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <p-card class="w-full max-w-sm">
+      <!-- Logo Placeholder en el header -->
+      <ng-template pTemplate="header">
+        <img src="assets/images/sc.png" alt="Logo" class="w-32 h-32 mx-auto">
+        <h1 class="text-2xl font-semibold text-center text-primary capitalize">Sistema escolar</h1>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <form [formGroup]="form" class="w-full" (submit)="onSubmit()">
+            <div class="grid grid-cols-1 gap-4">
+                <div class="flex flex-col">
+                    <input pInputText type="text" pInputText placeholder="Correo electrónico" formControlName="email" class="w-full"/>
+                </div>
+                <div class="flex flex-col">
+                    <p-password styleClass="w-full" placeholder="Contraseña" formControlName="password" [toggleMask]="true" [feedback]="false"></p-password>
+                </div>
+            </div>
+            <p-button type="sumbit" styleClass="capitalize w-full my-5" label="Iniciar sesión"></p-button>
+            <p-button styleClass="w-full" label="¿Olvidaste tu contraseña?" [link]="true"></p-button>
+        </form>
+      </ng-template>
+    </p-card>
+  </div>
+  

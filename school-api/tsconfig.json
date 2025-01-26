@@ -11,9 +11,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@config/*": ["src/config/*"],
-      "@school/*": ["src/school/*"],
-      "@users/*": ["src/users/*"],
+      "@env/*": ["src/environments/*"],
     },
     "incremental": true,
     "skipLibCheck": true,
