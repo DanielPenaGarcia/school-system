@@ -19,7 +19,6 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('@layouts/auth/auth.component').then((m) => m.AuthComponent),
-    canActivate: [authGuard],
     children: [
       {
         path: 'sign-in',

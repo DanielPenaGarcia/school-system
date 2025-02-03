@@ -5,7 +5,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 @Component({
   selector: 'app-school',
-  imports: [RouterModule, FooterComponent, SideBarComponent],
+  imports: [RouterModule, SideBarComponent],
   templateUrl: './school.component.html',
   styleUrl: './school.component.scss',
 })
