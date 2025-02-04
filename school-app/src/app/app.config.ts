@@ -5,10 +5,11 @@ import { providePrimeNG } from 'primeng/config';
 
 import { routes } from './app.routes';
 import { primeNgConfig } from '@core/configurations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { StorageService } from '@core/services/storage/storage.service';
 import { AuthService } from '@core/services/auth/auth.service';
 import { SessionService } from '@core/services/session/session.service';
+import { authInterceptor } from '@core/interceptors/auth.interceptor';
 
 
 export const appConfig: ApplicationConfig = {
@@ -17,7 +18,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     providePrimeNG(primeNgConfig),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
     provideAppInitializer(() => {
       const session = inject(SessionService);
       session.init();

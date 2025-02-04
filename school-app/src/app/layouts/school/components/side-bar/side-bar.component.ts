@@ -3,20 +3,22 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ItemComponent } from "../item/item.component";
+import { SchoolService } from '@layouts/school/school.service';
 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
   imports: [CommonModule, ItemComponent],
   templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.scss']
+  styleUrls: ['./side-bar.component.scss'],
+  providers: [SchoolService]
 })
 export class SideBarComponent implements OnInit {
 
   hide: boolean = false;
   items: MenuItem[] = [];
 
-  constructor() {}
+  constructor(private readonly schoolService: SchoolService) {}
 
   ngOnInit(): void {
     this.items = [
@@ -25,27 +27,25 @@ export class SideBarComponent implements OnInit {
         label: 'Inicio',
         icon: 'pi-home',
       },
-      {
-        routerLink: '/settings',
-        label: 'Configuración',
-        icon: 'pi-cog',
-      },
-      {
-        routerLink: '/calendar',
-        label: 'Calendario',
-        icon: 'pi-calendar',
-      },
-      {
-        routerLink: '/reports',
-        label: 'Reportes',
-        icon: 'pi-chart-line',
-      },
-      {
-        label: 'Departamentos',
-        icon: 'pi-briefcase',
-        routerLink: '/departments',
-      }
     ];
+    this.settings();
+  }
+
+  private settings(): void {
+    const education: MenuItem = {
+      label: 'Educación',
+      icon: 'pi pi-graduation-cap',
+      items: [],
+    };
+    this.schoolService.getSchoolSettings('1').subscribe((settings: any[]) => {
+      settings.forEach((setting) => {
+          education.items.push({
+            routerLink: setting.url,
+            label: setting.educationLevel.name,
+        });
+      });
+      this.items.push(education);
+    });
   }
 
   @HostListener('window:resize', ['$event'])

@@ -17,6 +17,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtOptions } from './config/jwt.config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { SettingsModule } from './settings/settings.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 @Module({
   imports: [
@@ -35,9 +38,10 @@ import { AuthModule } from './auth/auth.module';
     JwtModule.register(jwtOptions),
     SchoolsModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    SettingsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: AuthGuard   }],
 })
 export class AppModule {}

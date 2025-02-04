@@ -41,6 +41,7 @@ export class AuthService {
       name: `${user.member.names} ${user.member.lastNames}`,
       email: user.email,
       roles: user.member.roles.map((ur) => ur.role),
+      id: user.id,
     };
     return {
       access_token: await this.jwtService.signAsync(payload),
